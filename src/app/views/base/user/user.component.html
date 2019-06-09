@@ -19,13 +19,31 @@
           <div class="input-group-prepend">
             <span class="input-group-text">姓名</span>
           </div>
-          <input type="text" id="username" [(ngModel)]="params.userName" class="form-control">
+          <input type="text" id="username" [(ngModel)]="params.name" class="form-control">
+        </div>
+        <div class="input-group col-md-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">班级</span>
+          </div>
+          <input type="text" id="className" [(ngModel)]="params.className" class="form-control">
         </div>
         <div class="input-group col-md-2">
           <div class="input-group-prepend">
             <span class="input-group-text">性别</span>
           </div>
           <input type="text" id="gender" [(ngModel)]="params.gender" class="form-control">
+        </div>
+        <div class="input-group col-md-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">宿舍</span>
+          </div>
+          <input type="text" id="dormitory" [(ngModel)]="params.dormitory" class="form-control">
+        </div>
+        <div class="input-group col-md-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">来源</span>
+          </div>
+          <input type="text" id="source" [(ngModel)]="params.source" class="form-control">
         </div>
 
         <button type="button" class="btn btn-sm btn-primary" (click)="search()"><i class="fa fa-dot-circle-o"></i> 查询</button>
@@ -41,19 +59,19 @@
           <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
-                <th>基本信息</th>
-                <th>身份信息</th>
-                <th>毕业院校</th>
-                <th>成绩</th>
-                <th>其他信息</th>
-                <th>操作</th>
+                <th width="18%">基本信息</th>
+                <th width="18%">身份信息</th>
+                <th width="18%">毕业院校</th>
+                <th width="18%">成绩</th>
+                <th width="18%">其他信息</th>
+                <th width="10%">操作</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let user of users">
                 <td>
                   {{user.id+' '+user.name+' '+user.gender}}<br/>
-                  {{user.age+'岁 '+user.nation}}<br/>
+                  {{user.age+'岁 '+user.nation+' '+user.className}}<br/>
                   {{user.contact}}
                 </td>
                 <td>
@@ -67,7 +85,10 @@
                   专业: {{user.specialty}}
                 </td>
                 <td>
-                  {{user.score}}
+                  <span *ngFor="let score of user.scores;let i = index">
+                    <span *ngIf="i > 0"><br></span>
+                    {{score}}
+                  </span>
                 </td>
                 <td>
                   宿舍: {{user.dormitory}}<br/>
@@ -94,45 +115,45 @@
   <!--/.row-->
 </div>
 
-<div bsModal #manageUser="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">学生信息</h4>
-        <button type="button" class="close" (click)="closeEditWindow(manageUser)" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group row" *ngIf="currentUser.id">
-          <label class="col-md-2 col-form-label" for="modal-username">编号</label>
-          <div class="col-md-10">
-            <input type="text" id="modal-id" name="modal-id" disabled="true" [(ngModel)]="currentUser.id" class="form-control" >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label" for="modal-username">姓名</label>
-          <div class="col-md-10">
-            <input type="text" id="modal-username" name="modal-username" [(ngModel)]="currentUser.userName" class="form-control">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label" for="modal-password">密码</label>
-          <div class="col-md-10">
-            <input type="text" id="modal-password" name="modal-password" [(ngModel)]="currentUser.password" class="form-control">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label" for="modal-gender">性别</label>
-          <div class="col-md-10">
-            <input type="text" id="modal-gender" name="modal-gender" [(ngModel)]="currentUser.gender" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeEditWindow(manageUser)">取消</button>
-        <button type="button" class="btn btn-primary" (click)="save()">保存</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<!--<div bsModal #manageUser="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+  <!--<div class="modal-dialog" role="document">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-header">-->
+        <!--<h4 class="modal-title">学生信息</h4>-->
+        <!--<button type="button" class="close" (click)="closeEditWindow(manageUser)" aria-label="Close">-->
+          <!--<span aria-hidden="true">&times;</span>-->
+        <!--</button>-->
+      <!--</div>-->
+      <!--<div class="modal-body">-->
+        <!--<div class="form-group row" *ngIf="currentUser.id">-->
+          <!--<label class="col-md-2 col-form-label" for="modal-username">编号</label>-->
+          <!--<div class="col-md-10">-->
+            <!--<input type="text" id="modal-id" name="modal-id" disabled="true" [(ngModel)]="currentUser.id" class="form-control" >-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group row">-->
+          <!--<label class="col-md-2 col-form-label" for="modal-username">姓名</label>-->
+          <!--<div class="col-md-10">-->
+            <!--<input type="text" id="modal-username" name="modal-username" [(ngModel)]="currentUser.userName" class="form-control">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group row">-->
+          <!--<label class="col-md-2 col-form-label" for="modal-password">密码</label>-->
+          <!--<div class="col-md-10">-->
+            <!--<input type="text" id="modal-password" name="modal-password" [(ngModel)]="currentUser.password" class="form-control">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group row">-->
+          <!--<label class="col-md-2 col-form-label" for="modal-gender">性别</label>-->
+          <!--<div class="col-md-10">-->
+            <!--<input type="text" id="modal-gender" name="modal-gender" [(ngModel)]="currentUser.gender" class="form-control">-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-secondary" (click)="closeEditWindow(manageUser)">取消</button>-->
+        <!--<button type="button" class="btn btn-primary" (click)="save()">保存</button>-->
+      <!--</div>-->
+    <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+  <!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->

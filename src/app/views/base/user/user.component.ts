@@ -37,17 +37,27 @@ export class UserComponent implements OnInit {
       this.params.pageSize = response.pageSize;
       this.users = response.items;
       console.log(this.users);
+
+      if (this.users) {
+        this.users.forEach(user => user.scores = user.score.split('\n'));
+      }
     });
   }
 
   public openEditWindow(window, user) {
-    this.modalService.open(UserEditComponent, {size: 'lg'});
-    // this.manageUser = window;
-    // if (user) {
-    //   this.currentUser = user;
-    // }
-    //
-    // window.show();
+    const modalRef = this.modalService.open(UserEditComponent, {size: 'lg'});
+
+    const instance = modalRef.componentInstance;
+
+    if (user == null) {
+      instance.currentUser = new User();
+    } else {
+      instance.currentUser = user;
+    }
+
+    modalRef.result.then((res) => {
+      this.search(null);
+    });
   }
 
   public closeEditWindow() {

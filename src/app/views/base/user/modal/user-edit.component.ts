@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../../models/User';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserService} from '../../../../services/user.service';
+import {AlertComponent} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-user-edit',
@@ -8,11 +10,25 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class UserEditComponent implements OnInit {
 
-  public currentUser: User = new User();
+  @Input()
+  public currentUser: User;
 
-  constructor(private actionModal: NgbActiveModal) { }
+  constructor(private actionModal: NgbActiveModal,
+              private userService: UserService) { }
 
   ngOnInit() {
   }
 
+  save() {
+    if (this.currentUser.id == null) {
+      this.userService.add(this.currentUser).subscribe(response => {
+        this.actionModal.close(this.currentUser);
+      });
+    } else {
+      this.userService.update(this.currentUser).subscribe(response => {
+        this.actionModal.close(this.currentUser);
+      });
+    }
+
+  }
 }

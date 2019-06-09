@@ -25,6 +25,8 @@ export class User {
 
   public score: string;
 
+  public scores: string[];
+
   public dormitory: string;
 
   public source: string;
