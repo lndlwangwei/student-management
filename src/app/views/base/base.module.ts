@@ -53,6 +53,9 @@ import {StudentService} from '../../services/student.service';
 import {ClassComponent} from './class/class.component';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import { StudentEditComponent } from './student/modal/student-edit.component';
+import {UserComponent} from './user/user.component';
+import {UserEditComponent} from './user/modal/user-edit.component';
+import {UserService} from '../../services/user.service';
 
 @NgModule({
   imports: [
@@ -84,13 +87,17 @@ import { StudentEditComponent } from './student/modal/student-edit.component';
     TooltipsComponent,
     ClassComponent,
     StudentComponent,
-    StudentEditComponent
+    StudentEditComponent,
+    UserComponent,
+    UserEditComponent
   ],
   providers: [
-    StudentService
+    StudentService,
+    UserService
   ],
   entryComponents: [
-    StudentEditComponent
+    StudentEditComponent,
+    UserEditComponent
   ]
 })
 export class BaseModule { }

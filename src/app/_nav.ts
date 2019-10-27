@@ -1,7 +1,15 @@
 export const navItems = [
   {
     name: '学生信息管理',
-    url: '/base/schools',
+    url: '/base/student',
+    icon: 'icon-user',
+    badge: {
+      variant: 'info',
+    }
+  },
+  {
+    name: '用户管理',
+    url: '/base/user',
     icon: 'icon-user',
     badge: {
       variant: 'info',

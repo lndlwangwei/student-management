@@ -14,6 +14,7 @@ import {ProgressComponent} from './progress.component';
 import {TooltipsComponent} from './tooltips.component';
 import {StudentComponent} from './student/student.component';
 import {ClassComponent} from './class/class.component';
+import {UserComponent} from './user/user.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,13 @@ const routes: Routes = [
         component: ClassComponent,
         data: {
           title: 'class'
+        }
+      },
+      {
+        path: 'user',
+        component: UserComponent,
+        data: {
+          title: 'user'
         }
       },
       {

@@ -5,19 +5,19 @@ import {el} from '@angular/platform-browser/testing/src/browser_util';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ClassComponent} from '../class/class.component';
 import {UserEditComponent} from './modal/user-edit.component';
+import {UserService} from '../../../services/user.service';
+import {User} from '../../../models/User';
 
 @Component({
   templateUrl: 'user.component.html'
 })
-export class StudentComponent implements OnInit {
+export class UserComponent implements OnInit {
 
   public manageUser;
-  public students: Student[] = [];
-  public params: any = {totalSize: 10, pageSize: 15, currentPage: 1};
-  public maxSize = 5;
+  public users: User[] = [];
   public currentUser: Student = new Student();
 
-  constructor(public studentService: StudentService,
+  constructor(public userService: UserService,
               public modalService: NgbModal) {
 
   }
@@ -27,30 +27,19 @@ export class StudentComponent implements OnInit {
   }
 
   public search($event) {
-    if ($event) {
-      this.params.currentPage = $event.page;
-    }
-
-    this.studentService.get(this.params).subscribe(response => {
-      this.params.currentPage = response.currentPage;
-      this.params.totalSize = response.totalSize;
-      this.params.pageSize = response.pageSize;
-      this.students = response.items;
-      console.log(this.students);
-
-      if (this.students) {
-        this.students.forEach(user => user.scores = user.score.split('\n'));
-      }
+    this.userService.getAll().subscribe(response => {
+      this.users = response;
+      console.log(this.users);
     });
   }
 
   public openEditWindow(window, user) {
-    const modalRef = this.modalService.open(StudentEditComponent, {size: 'lg'});
+    const modalRef = this.modalService.open(UserEditComponent, {size: 'lg'});
 
     const instance = modalRef.componentInstance;
 
     if (user == null) {
-      instance.currentUser = new Student();
+      instance.currentUser = new User();
     } else {
       instance.currentUser = user;
     }
@@ -68,7 +57,7 @@ export class StudentComponent implements OnInit {
   public save() {
     // 新增
     if (!this.currentUser.id) {
-      this.studentService.add(this.currentUser).subscribe(response => {
+      this.userService.add(this.currentUser).subscribe(response => {
         this.students.unshift(response);
         this.closeEditWindow();
       });
