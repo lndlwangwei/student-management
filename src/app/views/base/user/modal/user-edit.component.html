@@ -3,20 +3,12 @@
     <!--<div class="modal-content">-->
 <form>
   <div class="modal-header">
-    <h4 class="modal-title">学生信息</h4>
+    <h4 class="modal-title">学生信息[{{currentUser.id}}]</h4>
     <button type="button" class="close" (click)="actionModal.dismiss()" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <div class="form-group row" *ngIf="currentUser.id">
-      <div class="input-group col-sm-12 col-md-12 col-lg-12">
-        <div class="input-group-prepend">
-          <span class="input-group-text">编号</span>
-        </div>
-        <input type="text" id="modal-id" name="modal-id" disabled="true" [(ngModel)]="currentUser.id" class="form-control" >
-      </div>
-    </div>
     <div class="form-group row">
       <div class="input-group col-sm-4 col-md-4 col-lg-4">
         <div class="input-group-prepend">
@@ -27,112 +19,19 @@
 
       <div class="input-group col-sm-4 col-md-4 col-lg-4">
         <div class="input-group-prepend">
-          <span class="input-group-text">性别</span>
+          <span class="input-group-text">角色</span>
         </div>
-        <input type="text" id="modal-gender" name="modal-gender" [(ngModel)]="currentUser.gender" class="form-control">
+        <select class="form-control" [(ngModel)]="currentUser.role">
+          <option value="'user'">用户</option>
+          <option value="'admin'">管理员</option>
+        </select>
       </div>
 
       <div class="input-group col-sm-4 col-md-4 col-lg-4">
         <div class="input-group-prepend">
-          <span class="input-group-text">年龄</span>
+          <span class="input-group-text">密码</span>
         </div>
-        <input type="text" id="modal-age" name="modal-age" [(ngModel)]="currentUser.age" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="input-group col-sm-4 col-md-4 col-lg-4">
-        <div class="input-group-prepend">
-          <span class="input-group-text">班级</span>
-        </div>
-        <input type="text" id="modal-className" name="modal-className" [(ngModel)]="currentUser.className" class="form-control" >
-      </div>
-
-      <div class="input-group col-sm-4 col-md-4 col-lg-4">
-        <div class="input-group-prepend">
-          <span class="input-group-text">民族</span>
-        </div>
-        <input type="text" id="modal-nation" name="modal-nation" [(ngModel)]="currentUser.nation" class="form-control" >
-      </div>
-
-      <div class="input-group col-sm-4 col-md-4 col-lg-4">
-        <div class="input-group-prepend">
-          <span class="input-group-text">联系方式</span>
-        </div>
-        <input type="text" id="modal-contact" name="modal-contact" [(ngModel)]="currentUser.contact" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="input-group col-sm-4 col-md-4 col-lg-4">
-        <div class="input-group-prepend">
-          <span class="input-group-text">身份证号</span>
-        </div>
-        <input type="text" id="modal-cardId" name="modal-cardId" [(ngModel)]="currentUser.cardId" class="form-control" >
-      </div>
-
-      <div class="input-group col-sm-8 col-md-8 col-lg-8">
-        <div class="input-group-prepend">
-          <span class="input-group-text">紧急联系人</span>
-        </div>
-        <input type="text" id="modal-emergencyContact" name="modal-emergencyContact" [(ngModel)]="currentUser.emergencyContact" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="input-group col-sm-12 col-md-12 col-lg-12">
-        <div class="input-group-prepend">
-          <span class="input-group-text">籍贯</span>
-        </div>
-        <input type="text" id="modal-hometown" name="modal-hometown" [(ngModel)]="currentUser.hometown" class="form-control" >
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="input-group col-sm-4 col-md-4 col-lg-4">
-        <div class="input-group-prepend">
-          <span class="input-group-text">毕业院校</span>
-        </div>
-        <input type="text" id="modal-graduateSchool" name="modal-graduateSchool" [(ngModel)]="currentUser.graduateSchool" class="form-control" >
-      </div>
-
-      <div class="input-group col-sm-4 col-md-4 col-lg-4">
-        <div class="input-group-prepend">
-          <span class="input-group-text">专业</span>
-        </div>
-        <input type="text" id="modal-specialty" name="modal-specialty" [(ngModel)]="currentUser.specialty" class="form-control">
-      </div>
-
-      <div class="input-group col-sm-4 col-md-4 col-lg-4">
-        <div class="input-group-prepend">
-          <span class="input-group-text">毕业时间</span>
-        </div>
-        <input type="text" id="modal-graduateTime" name="modal-graduateTime" [(ngModel)]="currentUser.graduateTime" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="input-group col-sm-12 col-md-12 col-lg-12">
-        <div class="input-group-prepend">
-          <span class="input-group-text">成绩</span>
-        </div>
-        <textarea id="modal-score" name="modal-score" [(ngModel)]="currentUser.score" class="form-control" rows="5"></textarea>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="input-group col-sm-6 col-md-6 col-lg-6">
-        <div class="input-group-prepend">
-          <span class="input-group-text">宿舍</span>
-        </div>
-        <input type="text" id="modal-dormitory" name="modal-dormitory" [(ngModel)]="currentUser.dormitory" class="form-control" >
-      </div>
-
-      <div class="input-group col-sm-6 col-md-6 col-lg-6">
-        <div class="input-group-prepend">
-          <span class="input-group-text">来源</span>
-        </div>
-        <input type="text" id="modal-source" name="modal-source" [(ngModel)]="currentUser.source" class="form-control">
+        <input type="text" id="modal-className" name="modal-className" [(ngModel)]="currentUser.password" class="form-control" >
       </div>
     </div>
   </div>

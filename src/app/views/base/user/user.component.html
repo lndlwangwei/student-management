@@ -26,9 +26,9 @@
               <tr *ngFor="let user of users">
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
-                <td>{{user.password}}</td>
+                <td>{{user.role}}</td>
                 <td>
-                  <button class="button btn-sm btn-primary" (click)="openEditWindow(manageUser, student)" style="margin-right: 5px;">修改</button>
+                  <button class="button btn-sm btn-primary" (click)="openEditWindow(manageUser, user)" style="margin-right: 5px;">修改</button>
                   <button class="button btn-sm btn-danger" (click)="delete(student)">删除</button>
                 </td>
               </tr>

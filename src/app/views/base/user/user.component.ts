@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
 
   public manageUser;
   public users: User[] = [];
-  public currentUser: Student = new Student();
+  public currentUser: User = new User();
 
   constructor(public userService: UserService,
               public modalService: NgbModal) {
@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
   }
 
   public closeEditWindow() {
-    this.currentUser = new Student();
+    this.currentUser = new User();
     this.manageUser.hide();
   }
 
@@ -58,22 +58,22 @@ export class UserComponent implements OnInit {
     // 新增
     if (!this.currentUser.id) {
       this.userService.add(this.currentUser).subscribe(response => {
-        this.students.unshift(response);
+        this.users.unshift(response);
         this.closeEditWindow();
       });
       return;
     }
 
     // 修改
-    this.studentService.update(this.currentUser).subscribe(response => {
+    this.userService.update(this.currentUser).subscribe(response => {
       this.closeEditWindow();
     });
   }
 
   public delete(user) {
-    this.studentService.delete(user.id).subscribe(response => {
-      const index = this.students.findIndex(u => u.id === user.id);
-      this.students.splice(index, 1);
+    this.userService.delete(user.id).subscribe(response => {
+      const index = this.users.findIndex(u => u.id === user.id);
+      this.users.splice(index, 1);
     });
   }
 }

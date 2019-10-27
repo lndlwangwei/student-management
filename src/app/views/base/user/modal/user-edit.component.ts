@@ -3,6 +3,8 @@ import {Student} from '../../../../models/Student';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {StudentService} from '../../../../services/student.service';
 import {AlertComponent} from 'ngx-bootstrap';
+import {User} from '../../../../models/User';
+import {UserService} from '../../../../services/user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -11,10 +13,11 @@ import {AlertComponent} from 'ngx-bootstrap';
 export class UserEditComponent implements OnInit {
 
   @Input()
-  public currentUser: Student;
+  public currentUser: User;
 
   constructor(private actionModal: NgbActiveModal,
-              private userService: StudentService) { }
+              private userService: UserService) {
+  }
 
   ngOnInit() {
   }
