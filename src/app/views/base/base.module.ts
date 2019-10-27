@@ -45,14 +45,14 @@ import { TooltipsComponent } from './tooltips.component';
 
 // Components Routing
 import { BaseRoutingModule } from './base-routing.module';
-import {UserComponent} from './user/user.component';
+import {StudentComponent} from './student/student.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {ModalsComponent} from '../notifications/modals.component';
 import {HttpClientModule} from '@angular/common/http';
-import {UserService} from '../../services/user.service';
+import {StudentService} from '../../services/student.service';
 import {ClassComponent} from './class/class.component';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
-import { UserEditComponent } from './user/modal/user-edit.component';
+import { StudentEditComponent } from './student/modal/student-edit.component';
 
 @NgModule({
   imports: [
@@ -83,14 +83,14 @@ import { UserEditComponent } from './user/modal/user-edit.component';
     ProgressComponent,
     TooltipsComponent,
     ClassComponent,
-    UserComponent,
-    UserEditComponent
+    StudentComponent,
+    StudentEditComponent
   ],
   providers: [
-    UserService
+    StudentService
   ],
   entryComponents: [
-    UserEditComponent
+    StudentEditComponent
   ]
 })
 export class BaseModule { }

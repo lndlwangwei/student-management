@@ -1,20 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from '../../../../models/User';
+import {Student} from '../../../../models/Student';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {UserService} from '../../../../services/user.service';
+import {StudentService} from '../../../../services/student.service';
 import {AlertComponent} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html'
+  templateUrl: './student-edit.component.html'
 })
-export class UserEditComponent implements OnInit {
+export class StudentEditComponent implements OnInit {
 
   @Input()
-  public currentUser: User;
+  public currentUser: Student;
 
   constructor(private actionModal: NgbActiveModal,
-              private userService: UserService) { }
+              private userService: StudentService) { }
 
   ngOnInit() {
   }

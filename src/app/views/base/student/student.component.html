@@ -68,37 +68,37 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
+              <tr *ngFor="let student of students">
                 <td>
-                  {{user.id+' '+user.name+' '+user.gender}}<br/>
-                  {{user.age+'岁 '+user.nation+' '+user.className}}<br/>
-                  {{user.contact}}
+                  {{student.id+' '+student.name+' '+student.gender}}<br/>
+                  {{student.age+'岁 '+student.nation+' '+student.className}}<br/>
+                  {{student.contact}}
                 </td>
                 <td>
-                  身份证: {{user.cardId}}<br/>
-                  籍贯: {{user.hometown}}<br/>
-                  紧急联系人: {{user.emergencyContact}}<br/>
+                  身份证: {{student.cardId}}<br/>
+                  籍贯: {{student.hometown}}<br/>
+                  紧急联系人: {{student.emergencyContact}}<br/>
                 </td>
                 <td>
-                  {{user.graduateSchool}}<br/>
-                  毕业时间: {{user.graduateTime}}<br/>
-                  专业: {{user.specialty}}
+                  {{student.graduateSchool}}<br/>
+                  毕业时间: {{student.graduateTime}}<br/>
+                  专业: {{student.specialty}}
                 </td>
                 <td>
-                  <span *ngFor="let score of user.scores;let i = index">
+                  <span *ngFor="let score of student.scores;let i = index">
                     <span *ngIf="i > 0"><br></span>
                     {{score}}
                   </span>
                 </td>
                 <td>
-                  宿舍: {{user.dormitory}}<br/>
-                  学生来源: {{user.source}}<br/>
-                  入库时间: {{user.createTime}}<br/>
-                  更新时间: {{user.updateTime}}
+                  宿舍: {{student.dormitory}}<br/>
+                  学生来源: {{student.source}}<br/>
+                  入库时间: {{student.createTime}}<br/>
+                  更新时间: {{student.updateTime}}
                 </td>
                 <td>
-                  <button class="button btn-sm btn-primary" (click)="openEditWindow(manageUser, user)" style="margin-right: 5px;">修改</button>
-                  <button class="button btn-sm btn-danger" (click)="delete(user)">删除</button>
+                  <button class="button btn-sm btn-primary" (click)="openEditWindow(manageUser, student)" style="margin-right: 5px;">修改</button>
+                  <button class="button btn-sm btn-danger" (click)="delete(student)">删除</button>
                 </td>
               </tr>
             </tbody>

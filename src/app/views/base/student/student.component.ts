@@ -1,23 +1,23 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../../services/user.service';
-import {User} from '../../../models/User';
+import {StudentService} from '../../../services/student.service';
+import {Student} from '../../../models/Student';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ClassComponent} from '../class/class.component';
-import {UserEditComponent} from './modal/user-edit.component';
+import {StudentEditComponent} from './modal/student-edit.component';
 
 @Component({
-  templateUrl: 'user.component.html'
+  templateUrl: 'student.component.html'
 })
-export class UserComponent implements OnInit {
+export class StudentComponent implements OnInit {
 
   public manageUser;
-  public users: User[] = [];
+  public students: Student[] = [];
   public params: any = {totalSize: 10, pageSize: 15, currentPage: 1};
   public maxSize = 5;
-  public currentUser: User = new User();
+  public currentUser: Student = new Student();
 
-  constructor(public userService: UserService,
+  constructor(public studentService: StudentService,
               public modalService: NgbModal) {
 
   }
@@ -31,26 +31,26 @@ export class UserComponent implements OnInit {
       this.params.currentPage = $event.page;
     }
 
-    this.userService.get(this.params).subscribe(response => {
+    this.studentService.get(this.params).subscribe(response => {
       this.params.currentPage = response.currentPage;
       this.params.totalSize = response.totalSize;
       this.params.pageSize = response.pageSize;
-      this.users = response.items;
-      console.log(this.users);
+      this.students = response.items;
+      console.log(this.students);
 
-      if (this.users) {
-        this.users.forEach(user => user.scores = user.score.split('\n'));
+      if (this.students) {
+        this.students.forEach(user => user.scores = user.score.split('\n'));
       }
     });
   }
 
   public openEditWindow(window, user) {
-    const modalRef = this.modalService.open(UserEditComponent, {size: 'lg'});
+    const modalRef = this.modalService.open(StudentEditComponent, {size: 'lg'});
 
     const instance = modalRef.componentInstance;
 
     if (user == null) {
-      instance.currentUser = new User();
+      instance.currentUser = new Student();
     } else {
       instance.currentUser = user;
     }
@@ -61,30 +61,30 @@ export class UserComponent implements OnInit {
   }
 
   public closeEditWindow() {
-    this.currentUser = new User();
+    this.currentUser = new Student();
     this.manageUser.hide();
   }
 
   public save() {
     // 新增
     if (!this.currentUser.id) {
-      this.userService.add(this.currentUser).subscribe(response => {
-        this.users.unshift(response);
+      this.studentService.add(this.currentUser).subscribe(response => {
+        this.students.unshift(response);
         this.closeEditWindow();
       });
       return;
     }
 
     // 修改
-    this.userService.update(this.currentUser).subscribe(response => {
+    this.studentService.update(this.currentUser).subscribe(response => {
       this.closeEditWindow();
     });
   }
 
   public delete(user) {
-    this.userService.delete(user.id).subscribe(response => {
-      const index = this.users.findIndex(u => u.id === user.id);
-      this.users.splice(index, 1);
+    this.studentService.delete(user.id).subscribe(response => {
+      const index = this.students.findIndex(u => u.id === user.id);
+      this.students.splice(index, 1);
     });
   }
 }

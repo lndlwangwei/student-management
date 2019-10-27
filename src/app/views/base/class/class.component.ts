@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../../models/User';
-import {UserService} from '../../../services/user.service';
+import {Student} from '../../../models/Student';
+import {StudentService} from '../../../services/student.service';
 
 @Component({
   selector: 'app-class',
@@ -9,12 +9,12 @@ import {UserService} from '../../../services/user.service';
 export class ClassComponent implements OnInit {
 
   public manageUser;
-  public users: User[] = [];
+  public users: Student[] = [];
   public params: any = {totalSize: 10, pageSize: 15, currentPage: 1};
   public maxSize = 5;
-  public currentUser: User = new User();
+  public currentUser: Student = new Student();
 
-  constructor(public userService: UserService) {
+  constructor(public userService: StudentService) {
 
   }
 
@@ -46,7 +46,7 @@ export class ClassComponent implements OnInit {
   }
 
   public closeEditWindow() {
-    this.currentUser = new User();
+    this.currentUser = new Student();
     this.manageUser.hide();
   }
 

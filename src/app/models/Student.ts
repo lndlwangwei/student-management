@@ -1,4 +1,4 @@
-export class User {
+export class Student {
   public id: number;
 
   public name: string;
