@@ -9,7 +9,7 @@ import {Pagination} from '../models/Pagination';
 })
 export class StudentService {
 
-  private baseUrl = 'http://localhost:8888/users';
+  private baseUrl = 'http://localhost:8888/students';
 
   constructor(public httpClient: HttpClient) { }
 

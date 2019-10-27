@@ -24,7 +24,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'schools'
+        redirectTo: 'student'
       },
       {
         path: 'cards',
@@ -55,10 +55,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'schools',
+        path: 'student',
         component: StudentComponent,
         data: {
-          title: 'School'
+          title: 'student'
         }
       },
       {

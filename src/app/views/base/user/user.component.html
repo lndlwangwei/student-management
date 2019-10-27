@@ -1,0 +1,159 @@
+<style>
+  button {
+    cursor: pointer;
+  }
+</style>
+<div class="animated fadeIn">
+  <!--/.row-->
+  <div class="row">
+    <h3 class="col-lg-12">学生信息管理</h3>
+    <div class="col-lg-12">
+      <div class="form-group row">
+        <div class="input-group col-md-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">编号</span>
+          </div>
+          <input type="text" id="id" [(ngModel)]="params.id" class="form-control">
+        </div>
+        <div class="input-group col-md-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">姓名</span>
+          </div>
+          <input type="text" id="username" [(ngModel)]="params.name" class="form-control">
+        </div>
+        <div class="input-group col-md-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">班级</span>
+          </div>
+          <input type="text" id="className" [(ngModel)]="params.className" class="form-control">
+        </div>
+        <div class="input-group col-md-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">性别</span>
+          </div>
+          <input type="text" id="gender" [(ngModel)]="params.gender" class="form-control">
+        </div>
+        <div class="input-group col-md-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">宿舍</span>
+          </div>
+          <input type="text" id="dormitory" [(ngModel)]="params.dormitory" class="form-control">
+        </div>
+        <div class="input-group col-md-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">来源</span>
+          </div>
+          <input type="text" id="source" [(ngModel)]="params.source" class="form-control">
+        </div>
+
+        <button type="button" class="btn btn-sm btn-primary" (click)="search()"><i class="fa fa-dot-circle-o"></i> 查询</button>
+        <div class="input-group float-right col-md-2">
+          <button type="button" class="btn btn-sm btn-success float-right" (click)="openEditWindow(manageUser)"><i class="fa fa-dot-circle-o"></i> 新增</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> 学生列表
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th width="18%">基本信息</th>
+                <th width="18%">身份信息</th>
+                <th width="18%">毕业院校</th>
+                <th width="18%">成绩</th>
+                <th width="18%">其他信息</th>
+                <th width="10%">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of students">
+                <td>
+                  {{student.id+' '+student.name+' '+student.gender}}<br/>
+                  {{student.age+'岁 '+student.nation+' '+student.className}}<br/>
+                  {{student.contact}}
+                </td>
+                <td>
+                  身份证: {{student.cardId}}<br/>
+                  籍贯: {{student.hometown}}<br/>
+                  紧急联系人: {{student.emergencyContact}}<br/>
+                </td>
+                <td>
+                  {{student.graduateSchool}}<br/>
+                  毕业时间: {{student.graduateTime}}<br/>
+                  专业: {{student.specialty}}
+                </td>
+                <td>
+                  <span *ngFor="let score of student.scores;let i = index">
+                    <span *ngIf="i > 0"><br></span>
+                    {{score}}
+                  </span>
+                </td>
+                <td>
+                  宿舍: {{student.dormitory}}<br/>
+                  学生来源: {{student.source}}<br/>
+                  入库时间: {{student.createTime}}<br/>
+                  更新时间: {{student.updateTime}}
+                </td>
+                <td>
+                  <button class="button btn-sm btn-primary" (click)="openEditWindow(manageUser, student)" style="margin-right: 5px;">修改</button>
+                  <button class="button btn-sm btn-danger" (click)="delete(student)">删除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="col-xs-12 col-12 d-sm-down-none float-right">
+            <pagination class="pull-right" [directionLinks]="true"  [boundaryLinks]="true" [rotate]="false" [maxSize]="6" [itemsPerPage]="params.pageSize" [totalItems]="params.totalSize"
+                        [(ngModel)]="params.currentPage" [firstText]="'首页'" [lastText]="'末页'" [previousText]="'上一页'" [nextText]="'下一页'" (pageChanged)="search($event)"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+
+<!--<div bsModal #manageUser="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+  <!--<div class="modal-dialog" role="document">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-header">-->
+        <!--<h4 class="modal-title">学生信息</h4>-->
+        <!--<button type="button" class="close" (click)="closeEditWindow(manageUser)" aria-label="Close">-->
+          <!--<span aria-hidden="true">&times;</span>-->
+        <!--</button>-->
+      <!--</div>-->
+      <!--<div class="modal-body">-->
+        <!--<div class="form-group row" *ngIf="currentUser.id">-->
+          <!--<label class="col-md-2 col-form-label" for="modal-username">编号</label>-->
+          <!--<div class="col-md-10">-->
+            <!--<input type="text" id="modal-id" name="modal-id" disabled="true" [(ngModel)]="currentUser.id" class="form-control" >-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group row">-->
+          <!--<label class="col-md-2 col-form-label" for="modal-username">姓名</label>-->
+          <!--<div class="col-md-10">-->
+            <!--<input type="text" id="modal-username" name="modal-username" [(ngModel)]="currentUser.userName" class="form-control">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group row">-->
+          <!--<label class="col-md-2 col-form-label" for="modal-password">密码</label>-->
+          <!--<div class="col-md-10">-->
+            <!--<input type="text" id="modal-password" name="modal-password" [(ngModel)]="currentUser.password" class="form-control">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group row">-->
+          <!--<label class="col-md-2 col-form-label" for="modal-gender">性别</label>-->
+          <!--<div class="col-md-10">-->
+            <!--<input type="text" id="modal-gender" name="modal-gender" [(ngModel)]="currentUser.gender" class="form-control">-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-secondary" (click)="closeEditWindow(manageUser)">取消</button>-->
+        <!--<button type="button" class="btn btn-primary" (click)="save()">保存</button>-->
+      <!--</div>-->
+    <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+  <!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
